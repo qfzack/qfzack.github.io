@@ -8,13 +8,12 @@ Oct 11, 2019[Linux](/categories/Linux)
 
 **1.1 安装nvm**
 
-  * nvm是一个node版本管理工具，就像Python中的anaconda，先安装nvm：
+  * nvm是一个node版本管理工具，就像Python中的anaconda，先安装nvm，参考[Install & Update Script](https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script)
 
 ```shell    
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash  
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
-  
-如果安装完运行`nvm`显示没有安装，关掉界面重新打开就行；  
+
 **1.2 安装node：**
 
   * 查看所有可用的node版本：
@@ -57,13 +56,13 @@ hexo init my_blog
 ```shell
 npm install  
 ```
-  
+
   * 生成静态网页文件：
 
 ```shell
 hexo generate  
 ```
-  
+
 等价于`hexo g`；
 
   * 启动服务器：
