@@ -1,9 +1,8 @@
 ---
 title: "数据结构：字典(Trie)树的实现(Java)"
-
 date: 2020-03-28T05:00:00Z
-# image: "/images/placeholder.png"
-categories: ["Data Structure"]
+categories: 
+    - "Data Structure"
 author: "Qingfeng Zhang"
 ---
 

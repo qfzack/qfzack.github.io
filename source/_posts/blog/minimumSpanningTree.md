@@ -1,9 +1,8 @@
 ---
 title: "最小生成树算法"
-
 date: 2020-08-15T05:00:00Z
-# image: "/images/placeholder.png"
-categories: ["Data Structure"]
+categories: 
+    - "Data Structure"
 author: "Qingfeng Zhang"
 ---
 

@@ -22,7 +22,7 @@ appearance:
   # 'url(//www.toptal.com/designers/subtlepatterns/patterns/confectionary.png) #f5f7fa'
 
   # Maximum width of content
-  content_width: 70%
+  content_width: 60%
 
   # Fonts
   font:
@@ -48,7 +48,7 @@ appearance:
     # Headline(h1, h2, h3, h4, h5, h6) font, fallback to `base`
     heading:
     # Code and code block
-    code: Inconsolata, monospace
+    code: Menlo, Monaco, 'Courier New', monospace
     # Base font for printing which applied to body
     print:
 
@@ -56,7 +56,13 @@ appearance:
   # Uses an architecture called "base16" (https://github.com/chriskempson/base16),
   # the default theme is a customized Atelier Dune Light theme,
   # please feel free to explore more.
-  highlight:
+  # solarized light
+  highlight: [
+    '#fdf6e3', '#eee8d5', '#93a1a1', '#839496',
+    '#657b83', '#586e75', '#073642', '#002b36',
+    '#dc322f', '#cb4b16', '#b58900', '#859900',
+    '#2aa198', '#268bd2', '#6c71c4', '#d33682'
+  ]
 
   # Default Light by Chris Kempson (http://chriskempson.com)
   # highlight: [
@@ -89,11 +95,12 @@ appearance:
     background: '#22272e'
     sidebar_background: '#22272e'
     card_background: '#2d333b'
+    # solarized light
     highlight: [
-      '#2d333b', '#444c56', '#3e4451', '#545862',
-      '#565c64', '#abb2bf', '#b6bdca', '#c8ccd4',
-      '#e06c75', '#d19a66', '#e5c07b', '#98c379',
-      '#56b6c2', '#61afef', '#c678dd', '#be5046'
+      '#fdf6e3', '#eee8d5', '#93a1a1', '#839496',
+      '#657b83', '#586e75', '#073642', '#002b36',
+      '#dc322f', '#cb4b16', '#b58900', '#859900',
+      '#2aa198', '#268bd2', '#6c71c4', '#d33682'
     ]
 
 # Sidebar profile
@@ -110,8 +117,8 @@ profile:
 # Sidebar navigation links
 menu:
   Home: /
+  Notes: /notes
   About: /about
-  # Links: /links
   Github: https://github.com/qfzack
 
 # Social media URL
@@ -164,7 +171,7 @@ page:
   reward: true
 
   # Display copyright notice, default to `false`
-  copyright: true
+  # copyright: true
 
 
 # Post
@@ -178,11 +185,11 @@ post:
   # The following settings are the same as the page
   # toc: false
   reward: true
-  copyright: true
+  # copyright: true
 
 # Archive
 archive:
-  per_page: 20
+  per_page: 18
 
 # Tag
 tag:

@@ -1,9 +1,9 @@
 ---
 title: "Java集合-初读HashMap源码"
-
 date: 2020-04-30T05:00:00Z
-# image: "/images/placeholder.png"
-categories: ["Java", "Data Structure"]
+categories: 
+    - "Java"
+    # - "Data Structure"
 author: "Qingfeng Zhang"
 ---
 
