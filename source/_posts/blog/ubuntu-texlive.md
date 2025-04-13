@@ -31,8 +31,7 @@ apt-get install texlive-xetex
 
 **2\. jupyter lab安装Latex插件**  
 直接搜插件Latex安装，按照插件的github的提示进行操作，但是报错显示找不到引用的文献；  
-查了一下资料，发现BibTeX是一种用于LaTeX参考文献处理的格式和程序，BibTex文件后缀名为.bib的文件，应该是要安装texlive-
-full（插件的github界面没有直说）  
+查了一下资料，发现BibTeX是一种用于LaTeX参考文献处理的格式和程序，BibTex文件后缀名为.bib的文件，应该是要安装texlive-full（插件的github界面没有直说）  
 ![](images/ubuntu-texlive/tex.jpg)
 
 (一直报错，未完待续)

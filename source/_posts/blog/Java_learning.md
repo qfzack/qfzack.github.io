@@ -2,7 +2,7 @@
 title: "Java学习小记"
 
 date: 2020-11-05T05:00:00Z
-# image: "/images/placeholder.png"
+# thumbnail: "images/photo/R0006712.JPG"
 categories: ["Java"]
 author: "Qingfeng Zhang"
 ---

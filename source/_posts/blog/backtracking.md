@@ -1,10 +1,7 @@
 ---
 title: "Python-回溯算法"
-
 date: 2019-10-11T05:00:00Z
-# image: "/images/placeholder.png"
 categories: ["Algorithm"]
-# tags: ["Algorithm", "Java"]
 author: "Qingfeng Zhang"
 ---
 
@@ -28,7 +25,7 @@ author: "Qingfeng Zhang"
 对于当前的合法序列，如果左右括号数量相等，那么下一步就只能放左括号；如果左括号的数量多于右括号，那么下一步就有两种情况：放左括号和放右括号；  
 第一步只能放一个左括号，对于n=3的情况如下图所示：
 
-![](/images/backtracking/bt1.jpg)
+![](images/backtracking/bt1.jpg)
 
 在两种情况下一个节点没有两个分支：左括号数量等于n、左右括号数量相等
 
@@ -52,7 +49,7 @@ class Solution:
   
 代码的运行过程如下：
 
-![](/images/backtracking/bt2.jpg)
+![](images/backtracking/bt2.jpg)
 
 backtrack函数由三个if语句组成，后两个if表示能否在当前的序列中加上左括号或右括号；  
 代码的运行过程与第一张图的**树的后序遍历**
@@ -87,7 +84,7 @@ class Solution:
 
 代码的运行过程如下：  
 
-![](/images/backtracking/bt3.jpg)
+![](images/backtracking/bt3.jpg)
 
 当一个分支满足终止条件（总和大于target或者遍历candidates结束）时，将其结束（return）；总和等于target时，将组合存放在ans中；  
 每一个节点都可以进行分支（没有条件），函数的参数中，i表示candidates中的下标，tmp_sum表示当前找到的序列的元素和，tmp表示当前找到的序列，最终符合要求的序列由tmp得到，这些参数都是由函数的参数表示
@@ -130,7 +127,7 @@ class Solution:
 为了防止每种组合的有序结果不重复，可以对于当前的结点L[i]，其子节点从L[i+1]开始往后找；  
 问题的解空间如下图所示：
 
-![](/images/backtracking/bt4.jpg)
+![](images/backtracking/bt4.jpg)
 
 * 求解代码
 ```python
@@ -160,7 +157,7 @@ class Solution:
 函数的参数只有两个：列表的下标i和所需的子集序列l；  
 问题的解空间如下图所示：
 
-![](/images/backtracking/bt5.jpg)
+![](images/backtracking/bt5.jpg)
 
 * 求解代码
 ```python
@@ -188,7 +185,7 @@ class Solution:
 为了防止子集中因为顺序不同导致重复的情况，如[1,1,2]和[1,2,1]，先对nums进行排序，对于终止的每一个l，如果不在ans中，就将其添加到ans中  
 以[1,2,2]为例，解空间的树结构为：
 
-![](/images/backtracking/bt6.jpg)
+![](images/backtracking/bt6.jpg)
 
 * 求解代码
 
@@ -238,7 +235,7 @@ class Solution:
   
 函数的调用过程如下图所指示：
 
-![](/images/backtracking/bt7.jpg)
+![](images/backtracking/bt7.jpg)
 
 ### NO.216 组合总数III
 

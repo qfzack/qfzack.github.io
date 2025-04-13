@@ -1,0 +1,36 @@
+name: Hexo deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hexo-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23'
+
+      - name: Install dependences
+        run: |
+          npm install -g hexo-cli
+          npm install
+
+      - name: Generate static files
+        run: | 
+          hexo clean
+          hexo generate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          commit_message: "Update to gh-pages with GitHub Actions - "

@@ -119,7 +119,7 @@ menu:
   Home: /
   Notes: /notes
   About: /about
-  Github: https://github.com/qfzack
+  # Github: https://github.com/qfzack
 
 # Social media URL
 sns:
@@ -129,9 +129,12 @@ sns:
   - icon: email
     title: Email
     url: # default to `profile.email`
-  - icon: feed
-    title: Feed
-    url: # default to `hexo.config.feed.path`
+  - icon: linkedin
+    title: Linkedin
+    url: https://www.linkedin.com/in/qingfeng-zhang-654387328/
+  # - icon: feed
+  #   title: Feed
+  #   url: # default to `hexo.config.feed.path`
 
   # custom icon
   # - title: Email me
@@ -154,8 +157,8 @@ footer:
   # theme: false
 
   # Custom text.
-  custom: Hosted by <a target="_blank" rel="external nofollow"
-    href="https://pages.github.com/"><b>Github Pages</b></a>
+  # custom: Hosted by <a target="_blank" rel="external nofollow"
+  #   href="https://pages.github.com/"><b>Github Pages</b></a>
 
 
 # ---------------------------------------------------------------
@@ -264,7 +267,7 @@ toc:
   # depth: 3
 
   # Showing index before title, eg. 1.1 title, default to `true`
-  # index: true
+  index: false
 
 # Reward
 reward:
