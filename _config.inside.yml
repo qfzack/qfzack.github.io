@@ -22,7 +22,7 @@ appearance:
   # 'url(//www.toptal.com/designers/subtlepatterns/patterns/confectionary.png) #f5f7fa'
 
   # Maximum width of content
-  content_width: 60%
+  # content_width: 640
 
   # Fonts
   font:
@@ -336,7 +336,7 @@ data_prefix:
 data_dir:
 
 # Favicon, default to `favicon.ico`
-favicon:
+favicon: images/note-insight2.png
 
 # Google analytics
 # ga: UA-00000000-0
