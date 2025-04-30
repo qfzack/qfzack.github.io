@@ -3,30 +3,30 @@
 
 # **WSL**
 
-- windows subsystem for linux
-- 先在softcenter安装wsl
-- 在MS store安装ubuntu，或者powershell执行`wsl --install -d ubuntu`
-- 安装完启动即可
+**Windows Subsystem for Linux (WSL)** is a feature of Windows that allows you to run a Linux environment on your Windows machine, without the need for a separate virtual machine or dual booting.
 
-> 踩坑：第一次安装完vscode无法连接wsl，于是卸载，卸载之后就再也安装不上了
-解决：申请了临时管理员权限，升级wsl lunux内核，wsl --update，然后就可以了
+- search and install WSL(windows subsystem for linux) in windows store
+- search and install the Ubuntu version you needed，or you can execute `wsl --install -d ubuntu` in Powershell
+- and then the installation of Ubuntu subsystem is completed
 
-- 配合vscode使用：
-    - 安装插件remote-wsl
-    - 在ubuntu中创建文件夹，然后可以打开跳转到vscode，`mkdir dir`，`code dir`
-    - vscode也自动连接上了wsl，可以在wsl ubuntu中进行开发了
-    - 本地安装的vscode在wsl中的路径是`/mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft VS Code`
-    - 当出现command not found: code时：
-        - 先找到code的位置：`sudo find /mnt/c/ -name "code" -type f 2>/dev/null`
-        - 创建软连接：`sudo ln -s /mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code /usr/local/bin/code`
+> Node: upgrade wsl lunux kernel with `wsl --update`
+
+- use with [VS Code](https://code.visualstudio.com/):
+  - install plugin `remote-wsl` in VS Code
+  - execute `code <path>` to open subsystem directory with VS Code
+  - the path of `code` tool on the Windows machine is `/mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft VS Code`
+  - if run `code` command to get error `command not found: code`:
+    - find the position of `code` tool: `sudo find /mnt/c/ -name "code" -type f 2>/dev/null`
+    - and then create symbolic links with: `sudo ln -s /mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code /usr/local/bin/code`
 
 # **Golang**
 
-## installation
+## basic enviroment installation
 
-- apt-get只能下载13版本的go，有点太旧了
-- 下载go：`wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz --no-check-certificate`
-- 使用`tar -xzvf ./golang -zxvf go1.21.3.linux-amd64.tar.gz`解压文件，然后配置环境变量
+- find a appropriate golang version in [https://go.dev/dl/](https://go.dev/dl/)
+- download golang package with wget: `wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz --no-check-certificate`
+- extract golang files with `tar -xzvf ./golang -zxvf go1.21.3.linux-amd64.tar.gz`
+- configure the golang enviroment variables:
 
 ```bash
 export GO111MODULE=on
@@ -39,42 +39,57 @@ export GOPATH=/home/qingfeng_zhang/golang/gopath
 export PATH=$PATH:$GOPATH/bin
 ```
 
-- vscode安装go插件，然后ctrl+shift+p搜索go: install安装go tools
+- install some go development tools in VS Code:
+  - use shortcut key `ctrl+shift+p`to open the commands palette, and type in `> go: install/Update Tools`to search and install go tools for development
 
-## version management
+## golang version management
 
-- install gvm refer to
+[GVM](https://github.com/moovweb/gvm) is a usefule tool to manage Go versions
 
-https://github.com/moovweb/gvm
+- install gvm refer to [https://github.com/moovweb/gvm](https://github.com/moovweb/gvm)
 
 ```bash
 sudo apt-get install bison
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 ```
 
-- install go1.20
+- install go1.23
 
 ```bash
-gvm install go1.20
+# install new golang version
+gvm install go1.23
+# list all available golang vesions
 gvm list
-gvm use
+# use specific golang version
+gvm use go1.23
 ```
 
 # **Nodejs**
 
-- `wget https://registry.npmmirror.com/-/binary/node/v20.13.0/node-v20.13.0-linux-x64.tar.xz`注意版本
-- `tar -xvf node-v20.13.0-linux-x64.tar.xz`
-- 设置node和npm的软连接，注意路径是否正确:
+Node.js is a JavaScript runtime environment that allows you to run JavaScript code outside of a web browser.
+NPM (Node Package Manager) is the default package manager for Node.js
+
+- install node with version v20.13.0:
+
+```bash
+# download node package with specified version 
+wget https://registry.npmmirror.com/-/binary/node/v20.13.0/node-v20.13.0-linux-x64.tar.xz
+# extract the node files, contain the npm tool
+tar -xvf node-v20.13.0-linux-x64.tar.xz
+```
+
+- set the symbolic link of `node` and `npm`:
   - `sudo ln -s /home/qingfeng_zhang/app/node-v20.13.0-linux-x64/bin/node /usr/local/bin/`
   - `sudo ln -s /home/qingfeng_zhang/app/node-v20.13.0-linux-x64/bin/npm /usr/local/bin/`
-- 更换node版本：
-    - 安装n模块：`npm install -g n`
-    - 升级到最新的稳定版本：`n stable`
-    - 也可以安装指定版本`n v14.17.5`，如果找不到n则进入到对应的安装目录执行
+
+- `n` is a `node` version manager:
+  - install with npm: `npm install -g n`
+  - upgrade to the latest stable node version: `n stable`
+  - or install the specified node version: `n v14.17.5`
 
 # **Python**
 
-- version management with pyenv
+## version management with [pyenv](https://github.com/pyenv/pyenv)
 
 ```shell
 curl -L <https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer> | bash
@@ -88,16 +103,55 @@ pyenv versions
 pyenv global 3.11
 ```
 
+## version management with Anaconda
+
+- download install file `Anaconda3-2021.05-Linux-x86_64.sh`:
+
+```shell
+curl -L -O <url>
+```
+
+- install Anaconda:
+
+```shell
+chmod +x Anaconda3-2023.03-1-Linux-x86_64.sh
+
+./Anaconda3-2023.03-1-Linux-x86_64.sh
+```
+
+- create Python enviroment:
+
+```shell
+conda create --name python3.10 python=3.10
+```
+
+- if get error about SSL certificate，ignore with:
+
+```shell
+conda config --set ssl_verify no
+```
+
+- see all installed enviroments:
+
+```shell
+conda info --envs
+```
+
+- use specified enviroment:
+
+```shell
+conda activate python3.10
+```
+
 # **Java**
 
-- https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu
+- install java in Ubuntu enviroment: [https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu](https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu)
 
 # **Docker**
 
 ## Installation
 
-- docker可以安装在windows上，这里选择安装在wsl(ubuntu)上
-- Refer to guideline  https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script
+- refer to guideline [install-using-the-convenience-script](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install Docker in WSL subsystem
 
 ```bash
 # install docker
@@ -113,52 +167,38 @@ sudo groupadd docker
 sudo usermod -aG docker ${USER}
 su -s ${USER}
 
-# configure ca cert
-wget --no-check-certificate  https://amaas-eos-drm1.cec.lab.emc.com/artifactory/vxrail-binaries-virtual/certs/EMC_CA_ROOT.crt -O /usr/local/share/ca-certificates/EMC_CA_ROOT.crt
-
 # restart docker daemon
 sudo service docker restart
 ```
 
 ## Build Image
 
-- build with docker file Dockerfile.python3.11 in current dir
+- build with docker file in current directory
 
 ```shell
-docker build -t amaas-eos-drm1.cec.lab.emc.com:5033/vxraildevops/ci/blackduck-drp-scanner:python3.11 -f Dockerfile.python3.11 .
+docker build -t <image_name>:<image-tag> -f <dockerfile> .
 ```
 
-- push to image hub
+- push to docker image registry
 
 ```shell
-docker push amaas-eos-drm1.cec.lab.emc.com:5033/vxraildevops/ci/blackduck-drp-scanner:python3.11
-
+docker push <image-registry-url>/<image-name>:<image-tag>
 ```
 
-## Redis Container
+## Redis with Container
 
-- docker hub查询可用的docker镜像`docker search redis`
-- 报错，修改docker镜像地址：`sudo vim /etc/docker/daemon.json`
+- search available docker images in docker hub with `docker search redis`
 
-```json
-{
-    "registry-mirrors": "<https://dftbcros.mirror.aliyuncs.com>"
-}
+> check docker configuration file `cat ~/.docker/config.json`
 
-```
-
-- 重启docker服务`systemctl restart docker`，继续pull将镜像拉到本地
-- 根据docker镜像创建docker容器：
+- create redis container with docker image:
 
 ```shell
-docker run -p 6379:6379 -v /home/mystic/Containers/data:/data -d redis redis-server --appendonly yes
+#  --appendonly yes: enable AOF data persistence in container
+docker run -p 6379:6379 -v <local-path>:<container-path> -d redis redis-server --appendonly yes
 ```
 
-> -p：将主机(VDI)的端口映射到容器的端口
--v：将主机的指定目录挂载到容器的指定目录下
-redis-server --appendonly yes：在容器中执行redis-server启动服务，并开启redis持久化
-
-- 进入docker容器中`docker exec -it 95 bash`
+- enter to redis container: `docker exec -it <container-id> bash`
 
 # **Jenkins**
 
@@ -168,52 +208,6 @@ redis-server --appendonly yes：在容器中执行redis-server启动服务，并
 
 ```shell
 docker run -d -p 9000:8080 -p 50000:50000 -v /var/jenkins_mount:/var/jenkins_home -v /etc/localtime:/etc/localtime --name jenkins-2.263.4 jenkins/jenkins:2.263.4
-```
-
-# **Python**
-
-## Install Anaconda
-
-- 下载Anaconda的安装文件Anaconda3-2021.05-Linux-x86_64.sh：
-
-```shell
-curl -L -O <url>
-```
-
-- 安装Anaconda：
-
-```shell
-chmod +x Anaconda3-2023.03-1-Linux-x86_64.sh
-
-./Anaconda3-2023.03-1-Linux-x86_64.sh
-```
-
-## Create Python Env
-
-- 使用conda创建python3.10的环境：
-
-```shell
-conda create --name python3.10 python=3.10
-```
-
-- 如果出现SSL证书的错误，先忽略SSL认证：
-
-```shell
-conda config --set ssl_verify no
-```
-
-## Version Control
-
-- 查看已安装的环境：
-
-```shell
-conda info --envs
-```
-
-- 使用指定的环境：
-
-```shell
-conda activate python3.10
 ```
 
 # **Groovy**
