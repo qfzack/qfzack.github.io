@@ -19,6 +19,23 @@
     - find the position of `code` tool: `sudo find /mnt/c/ -name "code" -type f 2>/dev/null`
     - and then create symbolic links with: `sudo ln -s /mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code /usr/local/bin/code`
 
+# **Zsh**
+
+- Zsh, or Z Shell, is an extended Unix shell that serves as both an interactive command interpreter and a powerful scripting language:
+
+```shell
+apt install zsh
+chsh -s /bin/zsh
+```
+
+- `Oh My Zsh` is a popular framework for managing Zsh configuration:
+
+```shell
+sh -c "$(curl -fsSL <https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh>)"
+```
+
+- modify `Oh My Zsh` configuration file `vi ~/.zshrc`, and suggest theme is `ZSH_THEME="ys"`
+
 # **Golang**
 
 ## basic enviroment installation
@@ -194,67 +211,62 @@ docker push <image-registry-url>/<image-name>:<image-tag>
 - create redis container with docker image:
 
 ```shell
-#  --appendonly yes: enable AOF data persistence in container
-docker run -p 6379:6379 -v <local-path>:<container-path> -d redis redis-server --appendonly yes
+# redis-server --appendonly yes: enable AOF data persistence in container
+docker run -d -p 6379:6379 \
+  -v <local-path>:<container-path> \
+  redis \
+  redis-server --appendonly yes
 ```
 
 - enter to redis container: `docker exec -it <container-id> bash`
 
-# **Jenkins**
+## Jenkins with container
 
-- 以docker容器的方式启动jenkins，因为原来使用的jenkins版本是2.263.4，因此拉取相同版本的镜像
-- 添加一个本地的挂载目录`/var/jenkins_mount`，给777权限，方便查看容器中的配置文件
-- 创建docker容器：
+- create docker container with Jenkins image `jenkins/jenkins:2.263.4`:
 
 ```shell
-docker run -d -p 9000:8080 -p 50000:50000 -v /var/jenkins_mount:/var/jenkins_home -v /etc/localtime:/etc/localtime --name jenkins-2.263.4 jenkins/jenkins:2.263.4
+docker run -d \
+  -p 9000:8080 \
+  -p 50000:50000 \
+  -v <local-path>:/var/jenkins_home \
+  -v /etc/localtime:/etc/localtime \
+  --name jenkins-2.263.4 \
+  jenkins/jenkins:2.263.4
 ```
 
 # **Groovy**
 
-- refer to https://groovy-lang.org/install.html to install
-- install java
+- refer to [https://groovy-lang.org/install.html](https://groovy-lang.org/install.html) to install Groovy
+- install java:
 
 ```shell
 apt install default-jre
 apt install default-jdk
 ```
 
-- config JAVA_HOME
+- configure JAVA_HOME variable
 
 ```shell
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-
 ```
-
-# **zsh**
-
-```shell
-apt install zsh
-chsh -s /bin/zsh
-
-sh -c "$(curl -fsSL <https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh>)"
-```
-
-- suggest theme: `ys`
 
 # **Git**
 
-- 一般是先把原始的repo fork为自己的repo，然后clone自己的repo进行开发，开发完提交到远程repo，然后再pull request到原始repo上
-  - upstream repo：原始repo
-  - 远程repo：从原始repo fork过来的
-  - 本地repo：从远程repo clone下来的
-
 ## Configuration
 
+- configure git info
+
 ```shell
+# param --global is for global git configuration
 git config --global user.name <username>
 git config --global user.email <email>
+git config --global commit.template ~/.git-commit-template.txt
 
+# generate rsa key
 ssh-keygen -t rsa -C <email>
 ```
 
-- configure multi RSA
+- configure multiple RSA
 
 ```shell
 ssh-keygen -t rsa -C <email> -f "~/.ssh/id_rsa_personal"
@@ -264,46 +276,38 @@ ssh-keygen -t rsa -C <email> -f "~/.ssh/id_rsa_personal"
 
 1. fork repo
 2. clone repo
-3. `git remote add upstream <https://eos2git.cec.lab.emc.com/vxrail/poxio.git`>
-    - `git remote -v`查看远程仓库，没有连接upstream之前就只有origin
-    - 连接upstream之后可以看到有upstream
-    - 然后可以从upstream repo拉去最新的改动：`git fetch upstream`（习惯使用`git pull upstream master --rebase`）
-4. `git checkout -b feature/poxio-ui/select-option`
-    - 切换到本地分支进行开发
-5. `git commit -am "comment"`
-    - 将分支提交到本地仓库
-    - 配置commit模板之后就可以`git commit -a`提交所有变动，然后进入commit信息编辑页面
-6. `git push origin feature/poxio-ui/select-option`
-    - 将分支推送到远程origin
-7. `git log`
-    - 查看commit历史
-8. `git rebase -i HEAD~3`
-    - 如果branch里有多条commit记录，就合并为一条
-9. `git pull upstream master --rebase`
-    - 从upstream拉去更新，且不产生新的commit记录
-10. submit pull request
-11. PR is reviewed and merged
+3. `git remote add upstream git@github.com:<user>/<repo-name>`
+   - use `git remote -v` to see all remote configs
+4. create a new branch in local: `git checkout -b feature/dev`
+5. use `git commit -am "comment"` to submit code change
+   - if commit template is configured, run `git commit -a` will into the commit message edit page
+6. push local branch to origin(fork) repo: `git push origin feature/dev`
+7. check commit history with `git log`
+8. if there have 2 commits and want to merge to 1, use `git rebase -i HEAD~2`
+9. if the local code is behind the upstream repo, use `git pull upstream master --rebase` to sync with upstream master branch
+   - the param `--rebase` will not create new commit
+   - or use `git fetch upstream master` and `git merge upstream/master`
+10. create pull request in Github page
+11. wait for the PR to be reviewed and merge
 
 ## Common Operation
 
-- **修改branch name**
-  - `git branch -m oldName newName`
-  - 如果已经推送到远程删除远程分支`git push --delete origin oldName`再推送
-  - 推送新分支`git push origin newName`
-  - 将本地分支与远程分支关联`git branch --set-upstream-to origin/newName`
+- **update branch name**
+  - `git branch -m old_branch new_branch`
+  - if the old-branch is existed in origin repo, execute `git push --delete origin old_branch` to delete it first
+  - push the new branch`git push origin new_branch`
+  - connect upstream branch with local branch: `git branch --set-upstream-to=origin/origin-branch local-branch`
 
-- **配置commit模板**
-  - https://eos2git.cec.lab.emc.com/vxrail/poxio/blob/master/.github/template_guide.md
-  - `git config --global commit.template ../commit_template.txt`
+- **configure commit template**
+  - `git config --global commit.template ./commit_template.txt`
 
-- **rebase合并commit**
-  - https://juejin.cn/post/6844903600976576519
-  - `git log`查看提交历史
-  - `git rebase -i HEAD~3` 编辑前三条commit
-  - 进入到编辑界面：将`pick`修改为`squash`或`s`，表示和前一个commit进行合并
-  - 保存退出之后会编辑commit信息，编辑完保存即可
+- **rebase commits**
+  - use `git log` to see commit history
+  - use `git rebase -i HEAD~3` to edit the first 3 commits
+  - update `pick` to `squash` or `s`, which means to merge with previous commit
+  - save and to edit the rebase commit message
 
-- **分支创建与合并**
+- **branch create and merge**
   - `git checkout -b new_branch`创建并切换到此分支
   - `git merge new_branch`将new_branch的变更合并到当前分支上
 
