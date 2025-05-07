@@ -1,5 +1,4 @@
-> **A notebook for some basic enviroment configuration in WSL2 (Ubuntu).**
-
+> **A notebook for some basic environment configuration in WSL2 (Ubuntu).**
 
 # **WSL**
 
@@ -38,12 +37,12 @@ sh -c "$(curl -fsSL <https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/to
 
 # **Golang**
 
-## basic enviroment installation
+## basic environment installation
 
 - find a appropriate golang version in [https://go.dev/dl/](https://go.dev/dl/)
 - download golang package with wget: `wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz --no-check-certificate`
 - extract golang files with `tar -xzvf ./golang -zxvf go1.21.3.linux-amd64.tar.gz`
-- configure the golang enviroment variables:
+- configure the golang environment variables:
 
 ```bash
 export GO111MODULE=on
@@ -61,7 +60,7 @@ export PATH=$PATH:$GOPATH/bin
 
 ## golang version management
 
-[GVM](https://github.com/moovweb/gvm) is a usefule tool to manage Go versions
+[GVM](https://github.com/moovweb/gvm) is a useful tool to manage Go versions
 
 - install gvm refer to [https://github.com/moovweb/gvm](https://github.com/moovweb/gvm)
 
@@ -75,7 +74,7 @@ bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/bins
 ```bash
 # install new golang version
 gvm install go1.23
-# list all available golang vesions
+# list all available golang versions
 gvm list
 # use specific golang version
 gvm use go1.23
@@ -136,7 +135,7 @@ chmod +x Anaconda3-2023.03-1-Linux-x86_64.sh
 ./Anaconda3-2023.03-1-Linux-x86_64.sh
 ```
 
-- create Python enviroment:
+- create Python environment:
 
 ```shell
 conda create --name python3.10 python=3.10
@@ -148,13 +147,13 @@ conda create --name python3.10 python=3.10
 conda config --set ssl_verify no
 ```
 
-- see all installed enviroments:
+- see all installed environments:
 
 ```shell
 conda info --envs
 ```
 
-- use specified enviroment:
+- use specified environment:
 
 ```shell
 conda activate python3.10
@@ -162,77 +161,7 @@ conda activate python3.10
 
 # **Java**
 
-- install java in Ubuntu enviroment: [https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu](https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu)
-
-# **Docker**
-
-## Installation
-
-- refer to guideline [install-using-the-convenience-script](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install Docker in WSL subsystem
-
-```bash
-# install docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-
-# start docker daemon
-sudo service docker start
-
-# fix non-root user can not connect to docker daemon
-# https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
-sudo groupadd docker
-sudo usermod -aG docker ${USER}
-su -s ${USER}
-
-# restart docker daemon
-sudo service docker restart
-```
-
-## Build Image
-
-- build with docker file in current directory
-
-```shell
-docker build -t <image_name>:<image-tag> -f <dockerfile> .
-```
-
-- push to docker image registry
-
-```shell
-docker push <image-registry-url>/<image-name>:<image-tag>
-```
-
-## Redis with Container
-
-- search available docker images in docker hub with `docker search redis`
-
-> check docker configuration file `cat ~/.docker/config.json`
-
-- create redis container with docker image:
-
-```shell
-# redis-server --appendonly yes: enable AOF data persistence in container
-docker run -d -p 6379:6379 \
-  -v <local-path>:<container-path> \
-  redis \
-  redis-server --appendonly yes
-```
-
-- enter to redis container: `docker exec -it <container-id> bash`
-
-## Jenkins with container
-
-- create docker container with Jenkins image `jenkins/jenkins:2.263.4`:
-
-```shell
-docker run -d \
-  -p 9000:8080 \
-  -p 50000:50000 \
-  -v <local-path>:/var/jenkins_home \
-  -v /etc/localtime:/etc/localtime \
-  --name jenkins-2.263.4 \
-  jenkins/jenkins:2.263.4
-```
+- install java in Ubuntu environment: [https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu](https://www.digitalocean.com/community/tutorials/install-maven-linux-ubuntu)
 
 # **Groovy**
 
@@ -290,7 +219,7 @@ ssh-keygen -t rsa -C <email> -f "~/.ssh/id_rsa_personal"
 10. create pull request in Github page
 11. wait for the PR to be reviewed and merge
 
-## Common Operation
+## Common Operations
 
 - **update branch name**
   - `git branch -m old_branch new_branch`
@@ -308,16 +237,16 @@ ssh-keygen -t rsa -C <email> -f "~/.ssh/id_rsa_personal"
   - save and to edit the rebase commit message
 
 - **branch create and merge**
-  - `git checkout -b new_branch`创建并切换到此分支
-  - `git merge new_branch`将new_branch的变更合并到当前分支上
+  - `git checkout -b new_branch` create and switch to this branch
+  - `git merge new_branch` merge changes from new_branch to current branch
 
-- **删除本地和远程分支**
+- **delete local and remote branches**
 - `git branch -d branch_name`
 - `git push origin --delete branch_name`
-- **修改commit信息**
+- **modify commit information**
   - `git commit --amend`
 
-- **tag为repo加标签**
+- **add tags to repo**
   - `git tag -l "v1.0.*"`
   - `git tag -a v1.0.0 -m "comment"`
   - `git tag -a v1.0.0 <commit_hash>`
@@ -325,44 +254,80 @@ ssh-keygen -t rsa -C <email> -f "~/.ssh/id_rsa_personal"
   - `git tag -d v1.0.0`
   - `git push origin v1.0.0`
 
-- **local切换upstream的branch**
+- **local switch to upstream branch**
   - `git fetch upstream`
   - `git branch -a`
   - `git checkout -b <branch_name> upstream/<branch_name>`
   - `git branch -vv`
 
-- **stash暂存修改**
-  - `git stash save "stash-info"` 保存当前的修改
-  - `git stash list` 查看stash列表
-  - `git stash apply 0` 使用指定的stash
-  - `git stash drop 0` 删除指定的stash
-  - `git stash show 0 -p` 查看指定stash内容
+- **stash changes**
+  - `git stash save "stash-info"` save current changes
+  - `git stash list` view stash list
+  - `git stash apply 0` use specified stash
+  - `git stash drop 0` delete specified stash
+  - `git stash show 0 -p` view specified stash content
 
-- 使用HTTPS时禁用SSL验证：
+- Disable SSL verification when using HTTPS:
 
 ```shell
 git clone -c http.sslVerify=false <Repo_URL>
 ```
 
-# **Docker Container**
+# **Docker**
+
+## Installation
+
+- refer to guideline [install-using-the-convenience-script](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install Docker in WSL subsystem
+
+```bash
+# install docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# start docker daemon
+sudo service docker start
+
+# fix non-root user can not connect to docker daemon
+# https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+su -s ${USER}
+
+# restart docker daemon
+sudo service docker restart
+```
+
+## Build Image
+
+- build with docker file in current directory
+
+```shell
+docker build -t <image_name>:<image-tag> -f <dockerfile> .
+```
+
+- push to docker image registry
+
+```shell
+docker push <image-registry-url>/<image-name>:<image-tag>
+```
 
 ## Postgres
 
-- docker启动postgres：
-  - 拉去postgres镜像：`docker pull bitnami/postgresql`
-  - 启动docker容器：`docker run --name postgres -e POSTGRES_PASSWORD=postgrespw -p 5432:5432 -d bitnami/postgresql`
-  - 进入容器：`docker exec -it <imageID> /bin/bash`
-  - 进入postgres：`psql -U postgres`
-- docker启动postgres客户端pgadmin4：
-  - 拉去pgadmin镜像：`docker pull dpage/pgadmin4`
-  - 启动docker容器：`docker run -p 5050:80 -e 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4`
-- 常用命令：
-  - 查看当前数据库：`select current_database();`或者`\l`
-  - 创建数据库：`CREATE DATABASE dbname;`
-  - 进入数据库：`\c dbName`
-  - 查看当前用户：`select user;`or `\du`
-  - 查看所有数据表：`\d`
-- wsl启动的postgres：
+- start postgres with docker:
+  - pull postgres image: `docker pull bitnami/postgresql`
+  - start docker container: `docker run --name postgres -e POSTGRES_PASSWORD=postgrespw -p 5432:5432 -d bitnami/postgresql`
+  - enter container: `docker exec -it <imageID> /bin/bash`
+  - enter postgres: `psql -U postgres`
+- start postgres client pgadmin4 with docker:
+  - pull pgadmin image: `docker pull dpage/pgadmin4`
+  - start docker container: `docker run -p 5050:80 -e 'PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4`
+- common commands:
+  - view current database: `select current_database();` or `\l`
+  - create database: `CREATE DATABASE dbname;`
+  - enter database: `\c dbName`
+  - view current user: `select user;` or `\du`
+  - view all tables: `\d`
+- postgres started in wsl:
   - name: postgres
   - password: postgrespw
 - data dump and restore:
@@ -374,55 +339,78 @@ psql -h 127.0.0.1 -p 5432 -U postgres -d poxio_datalake -f /devequ-snapshoot/ing
 
 ## Mongodb
 
-- docker启动mongodb：
-  - 拉取mongo的镜像：`docker pull amaas-eos-drm1.cec.lab.emc.com:5033/vxraildevops/mongo:4.2.7`
-  - 启动docker容器：`docker run --name mongodb -p 27017:27017 -d mongo`
-  - 进入容器：`docker exec -it mongo /bin/bash`
-  - 进入mongo：`mongo -u <userName> -p`
-- 常用命令：
-  - 查询数据库：`show dbs`
-  - 查看当前数据库：`<dbName>`
-  - 切换数据库：`use <dbName>`
-  - 查看collections：`show collections`
-- 使用k8s中的mongo：
+- start mongodb with docker:
+  - pull mongo image: `docker pull amaas-eos-drm1.cec.lab.emc.com:5033/vxraildevops/mongo:4.2.7`
+  - start docker container: `docker run --name mongodb -p 27017:27017 -d mongo`
+  - enter container: `docker exec -it mongo /bin/bash`
+  - enter mongo: `mongo -u <userName> -p`
+- common commands:
+  - query databases: `show dbs`
+  - view current database: `<dbName>`
+  - switch database: `use <dbName>`
+  - view collections: `show collections`
+- use mongo in k8s:
   - `kubectl exec -i -t -n mongodb-cluster-prod deep-mongodb-cluster-prod-0 -c mongod -- sh -c "(bash || ash || sh)"`
 
 ```mongo
-// 查询文档
+// Query document
 db.getCollection('commit').find({"repo": "nano-service","ntId":{$exists: false}})
 
-// 查询数量
+// Count documents
 db.getCollection('commit').count({"repo": "nano-service","ntId":{$exists: false}})
 
-// 更新文档的字段
+// Update document field
 db.getCollection('commit').update({"repo": "nano-service"},{ $set: { "workItemProject": "" } })
 db.getCollection('commit').updateMany({"repo": "nano-service"},{ $set: { "workItemProject": "" } })
 
-// 删除文档的字段
+// Delete document field
 db.getCollection('commit').update({"repo": "nano-service"},{ $unset: { "ntId": "" } })
 db.getCollection('commit').updateMany({"repo": "nano-service"},{ $unset: { "ntId": "" } })
 
-//判断字段存在
+// Check if field exists
 "ntId":{$exists: false}
-//判断字段等于""
+// Check if field equals ""
 "workItemKey":{$eq: ""}
-//判断字段不等于""
+// Check if field not equals ""
 "workItemKey":{$ne: ""}
 ```
 
 ## Redis
 
-- docker pull and run Redis image
+- Search available docker images in docker hub with `docker search redis`
+
+> check docker configuration file `cat ~/.docker/config.json`
+
+- create redis container with docker image:
 
 ```shell
-docker pull redis
-docker run --name redis -p 6379:6379 -d redis
+# redis-server --appendonly yes: enable AOF data persistence in container
+docker run -d -p 6379:6379 \
+  -v <local-path>:<container-path> \
+  redis \
+  redis-server --appendonly yes
 ```
 
-- 使用redis cli连接redis服务
+- enter to redis container: `docker exec -it <container-id> bash`
+
+- connect to redis service using redis cli
 
 ```shell
 redis-cli -h <ip-address> -p <port>    
+```
+
+## Jenkins
+
+- create docker container with Jenkins image `jenkins/jenkins:2.263.4`:
+
+```shell
+docker run -d \
+  -p 9000:8080 \
+  -p 50000:50000 \
+  -v <local-path>:/var/jenkins_home \
+  -v /etc/localtime:/etc/localtime \
+  --name jenkins-2.263.4 \
+  jenkins/jenkins:2.263.4
 ```
 
 ## Grafana
@@ -434,14 +422,14 @@ docker run --name grafana -p 3000:3000 -d grafana/grafana:latest
 
 ## Prometheus
 
-- 启动node-exporter
+- start node-exporter
 
 ```shell
 docker pull prom/node-exporter
 docker run --name node-exporter -p 9100:9100 -v "/proc:/host/proc:ro" -v "/sys:/host/sys:ro" -v "/:/rootfs:ro" -d prom/node-exporter
 ```
 
-- 创建配置文件`/opt/prometheus/prometheus.yml`:
+- create configuration file `/opt/prometheus/prometheus.yml`:
 
 ```yaml
 global:
@@ -463,7 +451,7 @@ scrape_configs:
 
 ```
 
-- 启动prometheus
+- start prometheus
 
 ```shell
 docker pull bitnami/prometheus
@@ -474,15 +462,13 @@ docker run --name prometheus  -d \\
     bitnami/prometheus
 ```
 
-- config file path:
-  - `\\\\wsl.localhost\\Ubuntu\\home\\qingfeng_zhang\\wsl_project\\vxrail-docker-library\\projects\\_\\vxraildevops\\prometheus\\deploy\\etc\\prometheus.yml`
-  - /etc/prometheus/prometheus.yml
+- config file path: `/etc/prometheus/prometheus.yml`
 
 # **Kubernetes**
 
 ## minikube
 
-- 安装minikube - https://minikube.sigs.k8s.io/docs/start/
+- install minikube - https://minikube.sigs.k8s.io/docs/start/
 
 ```shell
 curl -LO <https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64>
@@ -492,67 +478,67 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ## kubectl
 
 ```shell
-kubectl get events  #查看集群事件
+kubectl get events  #view cluster events
 ```
 
-- 获取pods信息
+- get pods information
 
 ```shell
 kubectl get pods
 kubectl get pods --all-namespaces
-#获取pod详细信息
+#get detailed pod information
 kubectl get pods -o wide
-#获取yaml格式的资源配置
+#get resource configuration in yaml format
 kubectl get po <podname> -o yaml
 ```
 
-- 创建资源
+- create resources
 
 ```shell
-kubectl create deployment my-deployment --image=imageName  #创建deployment
-kubectl expose deployment my-deployment --type=LoadBalancer --port=8080  #创建service，将pod暴露给公网
-kubectl apply -f config.yaml  #根据yaml配置文件创建或更新资源
+kubectl create deployment my-deployment --image=imageName  #create deployment
+kubectl expose deployment my-deployment --type=LoadBalancer --port=8080  #create service, expose pod to public network
+kubectl apply -f config.yaml  #create or update resources based on yaml configuration file
 ```
 
-- 删除资源
+- delete resources
 
 ```shell
-kubectl delete pod pod-name  #删除pod
+kubectl delete pod pod-name  #delete pod
 kubectl delete pod pod-name -n namespace
 
-kubectl delete service serviceName  #删除service
-kubectl delete deployment deploymentName  #删除deployment
+kubectl delete service serviceName  #delete service
+kubectl delete deployment deploymentName  #delete deployment
 
-kubectl delete pod <pod-name> -n merico-prod --force --grace-period=0  #强制删除
+kubectl delete pod <pod-name> -n merico-prod --force --grace-period=0  #force delete
 ```
 
 - describe
 
 ```shell
-kubectl describe nodes my-node  #查看node的详细信息
-kubectl describe pods my-node  #查看pod的详细信息
+kubectl describe nodes my-node  #view detailed node information
+kubectl describe pods my-node  #view detailed pod information
 ```
 
-- 扩容
+- scaling
 
 ```shell
 kubectl scale deployment my-deployment --replicas=0
 kubectl scale deployment my-deployment --replicas=1 -n namespace
 ```
 
-- pod日志
+- pod logs
 
 ```shell
 kubectl logs podName
 ```
 
-- 修改配置
+- modify configuration
 
 ```shell
-kubectl set image -n nameSpace deployment/my-deployment my-deployment=imageName  #修改deployment的image,可选image,resources,selector,subject
+kubectl set image -n nameSpace deployment/my-deployment my-deployment=imageName  #modify deployment image, options include image, resources, selector, subject
 ```
 
-- 清理无效的pod
+- clean up invalid pods
 
 ```shell
 kubectl delete pods --field-selector=status.phase=Failed
@@ -560,20 +546,20 @@ kubectl delete pods --field-selector=status.phase=Failed
 
 ## helm
 
-- chart代表helm包
-- repository用来存放和共享chart
-- release是运行在kubernetes中的chart实例
+- chart represents a helm package
+- repository is used to store and share charts
+- release is a chart instance running in kubernetes
 
 ```shell
 wget <https://get.helm.sh/helm-v3.12.0-linux-amd64.tar.gz>
 
-tar -xvf  helm-v3.12.0-linux-amd64.tar.gz
-sudo mv linux-amd64  /usr/local/bin
+tar -xvf  helm-v3.12.0-linux-amd64.tar.gz
+sudo mv linux-amd64  /usr/local/bin
 ```
 
 ## K9s
 
-- k8s管理工具，类似Lens，但是是命令行使用的
+- k8s management tool, similar to Lens, but used in command line
 - install:
 
 ```shell
@@ -593,8 +579,7 @@ rm openshift-client-linux.tar.gz
 
 # **Swagger**
 
-- swagger tools in golang is swaggo
-- https://github.com/swaggo/swag/blob/master/README_zh-CN.md
+- swagger tools in golang is [swaggo](https://github.com/swaggo/swag/blob/master/README_zh-CN.md)
 - update swagger docs
 
 ```shell
@@ -639,7 +624,6 @@ export PATH=$PATH:$HOME/minio-binaries/
 
 ```shell
 mc alias set swarm-minio <http://rduvxrbldprd001.isus.emc.com:8080> kkhQ40VmQGwq1zzf M8ciRJfBTZSHf5EApMagFo0zLbBNvQBU
-
 ```
 
 - usage
@@ -651,17 +635,4 @@ mc ls swarm-minio/deep-merico-backup  #list buckets objects in minio
 
 ```shell
 mc rm --recursive <ALIAS>/<BUCKET>/<FOLDER> --force --versions #force delete all version folder and files recursively
-```
-
-# **OCP Cluster**
-
-- Ingress: *.nginx.demo-partners.k8s.cec.delllabs.net
-
-```shell
-oc login -u <login_id> -p <password> api.demo-partners.k8s.cec.delllabs.net:6443
-```
-
-```shell
-oc login --token=sha256~AlCjDxGwmfYTMS-1_jYXevKCKwEQNT0Zb-ld42RIKEw --server=https://api.primarystorage-stage-drm.k8s.cec.delllabs.net:6443
-oc projects
 ```
