@@ -5,7 +5,8 @@
 **Windows Subsystem for Linux (WSL)** is a feature of Windows that allows you to run a Linux environment on your Windows machine, without the need for a separate virtual machine or dual booting.
 
 - search and install WSL(windows subsystem for linux) in windows store
-- search and install the Ubuntu version you needed，or you can execute `wsl --install -d ubuntu` in Powershell
+- search and install the Ubuntu version you needed，or list all available version with `wsl --list --online`
+- execute `wsl --install -d <distribution-version>` to install specified distribution in Powershell
 - and then the installation of Ubuntu subsystem is completed
 
 > Node: upgrade wsl lunux kernel with `wsl --update`
@@ -30,7 +31,7 @@ chsh -s /bin/zsh
 - `Oh My Zsh` is a popular framework for managing Zsh configuration:
 
 ```shell
-sh -c "$(curl -fsSL <https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh>)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 - modify `Oh My Zsh` configuration file `vi ~/.zshrc`, and suggest theme is `ZSH_THEME="ys"`
@@ -190,6 +191,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 git config --global user.name <username>
 git config --global user.email <email>
 git config --global commit.template ~/.git-commit-template.txt
+git config --global core.editor "vim"
 
 # generate rsa key
 ssh-keygen -t rsa -C <email>
