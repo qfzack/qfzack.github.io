@@ -17,7 +17,7 @@
   - the path of `code` tool on the Windows machine is `/mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft VS Code`
   - if run `code` command to get error `command not found: code`:
     - find the position of `code` tool: `sudo find /mnt/c/ -name "code" -type f 2>/dev/null`
-    - and then create symbolic links with: `sudo ln -s /mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code /usr/local/bin/code`
+    - and then create symbolic links with: `sudo ln -s "/mnt/c/Users/Qingfeng_Zhang/AppData/Local/Programs/Microsoft VS Code/bin/code" /usr/local/bin/code`
 
 # **Zsh**
 
@@ -42,7 +42,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 - find a appropriate golang version in [https://go.dev/dl/](https://go.dev/dl/)
 - download golang package with wget: `wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz --no-check-certificate`
-- extract golang files with `tar -xzvf ./golang -zxvf go1.21.3.linux-amd64.tar.gz`
+- extract golang files with `tar -zxvf go1.21.3.linux-amd64.tar.gz -C ./golang`
 - configure the golang environment variables:
 
 ```bash
@@ -108,8 +108,20 @@ tar -xvf node-v20.13.0-linux-x64.tar.xz
 
 ## version management with [pyenv](https://github.com/pyenv/pyenv)
 
+- install base packages
+
 ```shell
-curl -L <https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer> | bash
+sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+libffi-dev liblzma-dev
+```
+
+- install pyenv
+
+```shell
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 
 export PATH=$HOME/.pyenv/bin:$PATH
 eval "$(pyenv init -)"
