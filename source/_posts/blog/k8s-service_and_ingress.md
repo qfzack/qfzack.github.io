@@ -1,7 +1,7 @@
 ---
 title: "[Kubernetes In Action] Service & Ingress"
 date: 2024-10-14T05:00:00Z
-thumbnail: "images/photo/R0005812.JPG"
+# thumbnail: "images/photo/R0005812.JPG"
 categories: ["Kubernetes"]
 author: "Qingfeng Zhang"
 ---

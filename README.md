@@ -3,7 +3,7 @@
 
 ## 1. Update GitHub pages static files
 
-**Update manually in local**
+### **Update manually in local**
 
 1. Generate GitHub pages
     - Remove generated files and cache:
@@ -15,17 +15,17 @@
         hexo generate
         ```
 
-2. Run local server:
+2. Run local server for review:
 ```bash
 hexo server
 ```
 
-1. Deploy to branch `gh-pages`:
+3. Deploy to branch `gh-pages`:
 ```bash
 hexo deploy
 ```
 
-**Update with GitHub Actions**
+### **Update with GitHub Actions**
 
 Workflow [hexo-deploy.yml](.github/workflows/hexo-deploy.yml) will be executed when push to branch `main`, and then generate static files and push to branch `gh-pages`.
 

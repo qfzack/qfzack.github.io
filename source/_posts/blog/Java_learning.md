@@ -7,7 +7,7 @@ categories: ["Java"]
 author: "Qingfeng Zhang"
 ---
 
-# 1\. 对java中泛型的理解
+# 1. 对java中泛型的理解
 
 刚开始学习java，发现java建立的数组不能够增加或是删除元素，非常的不方便，而java中的list可以，在Java中新建一个整型list可以通过：
 

@@ -1,7 +1,7 @@
 ---
 title: "签名与证书"
 date: 2025-01-06T23:03:37+08:00
-thumbnail: "images/photo/R0006141.JPG"
+# thumbnail: "images/photo/R0006141.JPG"
 categories: ["Signing"]
 author: "Qingfeng Zhang"
 ---
